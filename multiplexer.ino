@@ -23,7 +23,7 @@ void setup() {
 }
 
 void loop() {
-  for (int i = 0; i < 7; i++) {
+  for (int i = 0; i < 8; i++) {
     selectMuxPin(i);
     delay(delayTime);
   }

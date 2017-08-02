@@ -12,7 +12,7 @@
 
 const int ledPin = 13;
 const int inPin = 2;
-const int collectionsPerSecond = 1000;
+const int collectionsPerSecond = 50;
 const int collectionTime = (1000 / collectionsPerSecond) * 1000;
 
 bool lastState = true;
@@ -30,8 +30,8 @@ void setup() {
 pinMode(ledPin, OUTPUT);
 pinMode(inPin, INPUT);
 
-  Serial.begin(2000000);
-Serial.print("begin");
+Serial.begin(2000000);
+Serial.println("begin");
 digitalWrite(ledPin, HIGH);
 }
 
@@ -53,7 +53,7 @@ void loop() {
   Serial.print(startMicros);
   Serial.print(" stopMicros: ");
   Serial.print(stopMicros);
-  Serial.print(" numMeasurements");
+  Serial.print(" numMeasurements: ");
   Serial.print(numMeasurements);
   Serial.print(" numCycles: "); 
   Serial.print(numCycles);

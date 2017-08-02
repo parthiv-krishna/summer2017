@@ -8,12 +8,16 @@
  *  
  *  This program was originally designed for use with a Teensy 3.2
  *  but it may work with other boards with some modifications.
- */
+ */  
+
+const bool verboseOut = false;
 
 const int ledPin = 13;
 const int inPin = 2;
 const int collectionsPerSecond = 50;
 const int collectionTime = (1000 / collectionsPerSecond) * 1000;
+const int valueR1 = 554; // ohms
+const int valueR2 = 559; // ohms
 
 bool lastState = true;
 bool currentState = true;
@@ -24,15 +28,16 @@ int numMeasurements = 0;
 float startMicros = 0;
 float stopMicros = 0;
 float freq = 0;
+float cap = 0;
 
 void setup() {
 
-pinMode(ledPin, OUTPUT);
-pinMode(inPin, INPUT);
+  pinMode(ledPin, OUTPUT);
+  pinMode(inPin, INPUT);
 
-Serial.begin(2000000);
-Serial.println("begin");
-digitalWrite(ledPin, HIGH);
+  Serial.begin(2000000);
+  Serial.println("begin");
+  digitalWrite(ledPin, HIGH);
 }
 
 void loop() {
@@ -49,16 +54,22 @@ void loop() {
     numMeasurements++;
   }
   freq = numCycles * collectionsPerSecond;
-  Serial.print("startMicros: ");
-  Serial.print(startMicros);
-  Serial.print(" stopMicros: ");
-  Serial.print(stopMicros);
-  Serial.print(" numMeasurements: ");
-  Serial.print(numMeasurements);
-  Serial.print(" numCycles: "); 
-  Serial.print(numCycles);
-  Serial.print(" freq: ");
-  Serial.println(freq);
+  cap = 1 / (freq * 0.693 * (valueR1 + (2 * valueR2)));
+  if (verboseOut) {
+    Serial.print("startMicros: ");
+    Serial.print(startMicros);
+    Serial.print(" stopMicros: ");
+    Serial.print(stopMicros);
+    Serial.print(" numMeasurements: ");
+    Serial.print(numMeasurements);
+    Serial.print(" numCycles: ");
+    Serial.print(numCycles);
+    Serial.print(" freq: ");
+    Serial.print(freq);
+  }
+  Serial.print(" cap: ");
+  Serial.print(cap * 1000000000);
+  Serial.println("nF");
   numCycles = 0;
   numMeasurements = 0;
 }

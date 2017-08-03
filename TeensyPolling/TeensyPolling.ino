@@ -6,8 +6,9 @@
  *  This would be used along with the 555 timer circuit that converts
  *  variable capacitance into variable frequency.
  *  
- *  This program was originally designed for use with a Teensy 3.2
- *  but it may work with other boards with some modifications.
+ *  This program was originally designed for use with a Teensy 3.2,
+ *  overclocked to 96 MHz, but it may work with other boards with some
+ *    modifications.
  */  
 
 const bool verboseOut = false;

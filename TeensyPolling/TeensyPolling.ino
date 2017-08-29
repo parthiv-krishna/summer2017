@@ -1,5 +1,6 @@
 /*  
  *  Reads the frequency of an incoming PWM signal with polling.
+ *  The frequency is converted into a capacitance value. 
  *  Polling is ~350 kHz, max frequency is ~175 kHz. Accuracy to 
  *  within +/- 0.5*collectionsPerSecond.
  *  

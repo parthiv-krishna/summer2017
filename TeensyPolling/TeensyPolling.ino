@@ -1,18 +1,19 @@
-/*  
- *  Reads the frequency of an incoming PWM signal with polling.
- *  The frequency is converted into a capacitance value. 
- *  Polling is ~350 kHz, max frequency is ~175 kHz. Accuracy to 
- *  within +/- 0.5*collectionsPerSecond.
- *  
- *  This would be used along with the 555 timer circuit that converts
- *  variable capacitance into variable frequency.
- *  
- *  This program was originally designed for use with a Teensy 3.2,
- *  overclocked to 96 MHz, but it may work with other boards with some
- *    modifications.
- */  
+/*
+    Reads the frequency of an incoming PWM signal with polling.
+    The frequency is converted into a capacitance value.
+    Polling is ~350 kHz, max frequency is ~175 kHz. Accuracy to
+    within +/- 0.5*collectionsPerSecond.
 
-const bool verboseOut = false;
+    This would be used along with the 555 timer circuit that converts
+    variable capacitance into variable frequency.
+
+    This program was originally designed for use with a Teensy 3.2,
+    overclocked to 120 MHz, but it may work with other boards with some
+      modifications.
+*/
+
+const bool verboseOut = false; // More debug info (recommended: false)
+const bool usePlotter = true; // Use Serial Plotter (recommended: true)
 
 const int ledPin = 13;
 const int inPin = 2;
@@ -69,9 +70,14 @@ void loop() {
     Serial.print(" freq: ");
     Serial.print(freq);
   }
-  Serial.print(" cap: ");
-  Serial.print(cap * 1000000000);
-  Serial.println("nF");
+  if (usePlotter) {
+    Serial.println(cap * 1000000000);
+  }
+  else {
+    Serial.print(" cap: ");
+    Serial.print(cap * 1000000000);
+    Serial.println("nF");
+  }
   numCycles = 0;
   numMeasurements = 0;
 }

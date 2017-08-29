@@ -1,26 +1,31 @@
 /*
-    Reads the frequency of an incoming PWM signal with polling.
-    The frequency is converted into a capacitance value.
-    Polling is ~350 kHz, max frequency is ~175 kHz. Accuracy to
-    within +/- 0.5*collectionsPerSecond.
+ *  Reads the frequency of an incoming PWM signal with polling.
+ *  The frequency is converted into a capacitance value.
+ *  Polling is ~350 kHz, max frequency is ~175 kHz. Accuracy to
+ *  within +/- 0.5*collectionsPerSecond.
+ *
+ *  This would be used along with the 555 timer circuit that converts
+ *  variable capacitance into variable frequency.
 
-    This would be used along with the 555 timer circuit that converts
-    variable capacitance into variable frequency.
-
-    This program was originally designed for use with a Teensy 3.2,
-    overclocked to 120 MHz, but it may work with other boards with some
-      modifications.
-*/
+ *  This program was originally designed for use with a Teensy 3.2,
+ *  overclocked to 120 MHz, but it may work with other boards with some
+ *  modifications.
+ */
 
 const bool verboseOut = false; // More debug info (recommended: false)
 const bool usePlotter = true; // Use Serial Plotter (recommended: true)
 
-const int ledPin = 13;
-const int inPin = 2;
-const int collectionsPerSecond = 50;
-const int collectionTime = (1000 / collectionsPerSecond) * 1000;
-const int valueR1 = 554; // ohms
-const int valueR2 = 559; // ohms
+const int ledPin = 13; // Onboard LED on Teensy
+const int inPin = 2; // Input from 555 Timer
+
+const int collectionsPerSecond = 50; // Increase for more readings but less accuracy.
+const int collectionTime = (1000 / collectionsPerSecond) * 1000; // Don't change!
+
+// Hardware information
+const float valueR1 = 554; // ohms
+const float valueR2 = 559; // ohms
+
+/* ------------------------------------------------------------------------------------ */
 
 bool lastState = true;
 bool currentState = true;
